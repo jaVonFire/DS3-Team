@@ -1,0 +1,292 @@
+{
+  "baseline_logistic": {
+    "val": {
+      "macro_f1": 0.4317272872123483,
+      "weighted_f1": 0.8545407860550777,
+      "balanced_accuracy": 0.6309460553036202,
+      "confusion_matrix": [
+        [
+          2354,
+          656,
+          54
+        ],
+        [
+          4,
+          14,
+          12
+        ],
+        [
+          0,
+          13,
+          25
+        ]
+      ],
+      "classification_report": {
+        "bajo": {
+          "precision": 0.998303647158609,
+          "recall": 0.7682767624020888,
+          "f1-score": 0.8683142751752121,
+          "support": 3064.0
+        },
+        "medio": {
+          "precision": 0.020497803806734993,
+          "recall": 0.4666666666666667,
+          "f1-score": 0.03927068723702665,
+          "support": 30.0
+        },
+        "alto": {
+          "precision": 0.27472527472527475,
+          "recall": 0.6578947368421053,
+          "f1-score": 0.3875968992248062,
+          "support": 38.0
+        },
+        "accuracy": 0.7640485312899106,
+        "macro avg": {
+          "precision": 0.4311755752302062,
+          "recall": 0.6309460553036202,
+          "f1-score": 0.4317272872123483,
+          "support": 3132.0
+        },
+        "weighted avg": {
+          "precision": 0.9801586428632632,
+          "recall": 0.7640485312899106,
+          "f1-score": 0.8545407860550777,
+          "support": 3132.0
+        }
+      }
+    },
+    "test": {
+      "macro_f1": 0.43306066747401534,
+      "weighted_f1": 0.8585351473761946,
+      "balanced_accuracy": 0.6356430532861151,
+      "confusion_matrix": [
+        [
+          3702,
+          988,
+          71
+        ],
+        [
+          8,
+          27,
+          27
+        ],
+        [
+          0,
+          15,
+          34
+        ]
+      ],
+      "classification_report": {
+        "bajo": {
+          "precision": 0.997843665768194,
+          "recall": 0.7775677378701953,
+          "f1-score": 0.8740408452366899,
+          "support": 4761.0
+        },
+        "medio": {
+          "precision": 0.02621359223300971,
+          "recall": 0.43548387096774194,
+          "f1-score": 0.04945054945054945,
+          "support": 62.0
+        },
+        "alto": {
+          "precision": 0.25757575757575757,
+          "recall": 0.6938775510204082,
+          "f1-score": 0.3756906077348066,
+          "support": 49.0
+        },
+        "accuracy": 0.7723727422003284,
+        "macro avg": {
+          "precision": 0.4272110051923204,
+          "recall": 0.6356430532861151,
+          "f1-score": 0.43306066747401534,
+          "support": 4872.0
+        },
+        "weighted avg": {
+          "precision": 0.9780336920283315,
+          "recall": 0.7723727422003284,
+          "f1-score": 0.8585351473761946,
+          "support": 4872.0
+        }
+      }
+    }
+  },
+  "challenger_xgboost": {
+    "val": {
+      "macro_f1": 0.43885713899286216,
+      "weighted_f1": 0.9218340464198899,
+      "balanced_accuracy": 0.5823504038599544,
+      "confusion_matrix": [
+        [
+          2719,
+          287,
+          58
+        ],
+        [
+          11,
+          10,
+          9
+        ],
+        [
+          5,
+          13,
+          20
+        ]
+      ],
+      "classification_report": {
+        "bajo": {
+          "precision": 0.9941499085923218,
+          "recall": 0.887402088772846,
+          "f1-score": 0.9377478875668218,
+          "support": 3064.0
+        },
+        "medio": {
+          "precision": 0.03225806451612903,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.058823529411764705,
+          "support": 30.0
+        },
+        "alto": {
+          "precision": 0.22988505747126436,
+          "recall": 0.5263157894736842,
+          "f1-score": 0.32,
+          "support": 38.0
+        },
+        "accuracy": 0.8777139208173691,
+        "macro avg": {
+          "precision": 0.4187643435265717,
+          "recall": 0.5823504038599544,
+          "f1-score": 0.43885713899286216,
+          "support": 3132.0
+        },
+        "weighted avg": {
+          "precision": 0.9756636954170708,
+          "recall": 0.8777139208173691,
+          "f1-score": 0.9218340464198899,
+          "support": 3132.0
+        }
+      }
+    },
+    "test": {
+      "macro_f1": 0.46696788002265915,
+      "weighted_f1": 0.9375595327585963,
+      "balanced_accuracy": 0.6311020752929232,
+      "confusion_matrix": [
+        [
+          4369,
+          312,
+          80
+        ],
+        [
+          19,
+          20,
+          23
+        ],
+        [
+          5,
+          12,
+          32
+        ]
+      ],
+      "classification_report": {
+        "bajo": {
+          "precision": 0.9945367630320965,
+          "recall": 0.9176643562276833,
+          "f1-score": 0.9545553856237711,
+          "support": 4761.0
+        },
+        "medio": {
+          "precision": 0.05813953488372093,
+          "recall": 0.3225806451612903,
+          "f1-score": 0.09852216748768473,
+          "support": 62.0
+        },
+        "alto": {
+          "precision": 0.23703703703703705,
+          "recall": 0.6530612244897959,
+          "f1-score": 0.34782608695652173,
+          "support": 49.0
+        },
+        "accuracy": 0.9074302134646962,
+        "macro avg": {
+          "precision": 0.4299044449842849,
+          "recall": 0.6311020752929232,
+          "f1-score": 0.46696788002265915,
+          "support": 4872.0
+        },
+        "weighted avg": {
+          "precision": 0.9750018462178608,
+          "recall": 0.9074302134646962,
+          "f1-score": 0.9375595327585963,
+          "support": 4872.0
+        }
+      }
+    }
+  },
+  "shap_importance_top": [
+    [
+      "dist_nido_km",
+      0.5356951951980591
+    ],
+    [
+      "meses_desde_ultimo_evento",
+      0.3592798411846161
+    ],
+    [
+      "n_eventos_6m",
+      0.25533515214920044
+    ],
+    [
+      "meses_desde_ultimo_M3",
+      0.24146373569965363
+    ],
+    [
+      "area_km2",
+      0.17766740918159485
+    ],
+    [
+      "poblacion_resto",
+      0.11006638407707214
+    ],
+    [
+      "poblacion_total",
+      0.10233055800199509
+    ],
+    [
+      "pct_urbano",
+      0.09075728803873062
+    ],
+    [
+      "densidad_hab_km2",
+      0.08619153499603271
+    ],
+    [
+      "poblacion_cabecera",
+      0.0539272241294384
+    ]
+  ],
+  "features_used": [
+    "n_eventos",
+    "mag_media",
+    "mag_max",
+    "prof_media",
+    "prof_std",
+    "energia_liberada",
+    "n_eventos_M3",
+    "n_eventos_M4",
+    "n_eventos_3m",
+    "n_eventos_6m",
+    "energia_3m",
+    "mag_max_3m",
+    "ratio_actividad_reciente",
+    "meses_desde_ultimo_evento",
+    "meses_desde_ultimo_M3",
+    "dist_nido_km",
+    "poblacion_total",
+    "poblacion_cabecera",
+    "poblacion_resto",
+    "pct_urbano",
+    "densidad_hab_km2",
+    "area_km2"
+  ]
+}

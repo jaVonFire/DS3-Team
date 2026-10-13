@@ -6,17 +6,4 @@ __pycache__/
 .kombai/
 .DS_Store
 
-# Datos pesados: no versionar (se reproducen con src/data/ingest.py)
-data/raw/*
-data/interim/*
-data/processed/*
-!data/raw/.gitkeep
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-
-artifacts/
-*.pkl
-*.joblib
-*.zip
-
 *.log

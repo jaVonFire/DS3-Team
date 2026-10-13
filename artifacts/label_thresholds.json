@@ -1,0 +1,11 @@
+{
+  "q_low": 4.100344835431027,
+  "q_high": 5.000043427276863,
+  "train_nonzero_count": 447,
+  "train_zero_count": 14169,
+  "classes": [
+    "bajo",
+    "medio",
+    "alto"
+  ]
+}
