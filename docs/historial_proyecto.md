@@ -103,30 +103,40 @@ Se crearon y pasaron al 100% (10 tests) en `tests/`:
 
 ---
 
-## 5. Próximos Pasos (Fases 1 a 6)
+## 4. Estado de Avance por Fases
 
-1. **Fase 1 — Ingesta y Limpieza:**
-   - Colocar el catálogo en `data/raw/`.
-   - Crear `src/data/clean.py` para parsear fechas UTC, magnitudes y cruzar nombres de municipios con `municipios_base.geojson`.
-2. **Fase 2 — Ingeniería de Variables (20+ variables):**
-   - Crear `src/features/build_features.py`.
-   - Generar la matriz: 87 municipios $\times$ 240 meses (2005–2024).
-   - Calcular variables sísmicas históricas (conteos, ventanas 30d/90d, energía liberada, magnitud máxima, días desde el último $M \ge 3$).
-   - Calcular la etiqueta del mes $t+1$ (índice de actividad; cuantiles ajustados en train > 0).
-   - Unir con las variables anuales del DANE.
-   - Validar multicolinealidad (Spearman $< 0.90$) y guardar `data/processed/dataset.parquet`.
-3. **Fase 3 — Modelo Básico (Supervisado):**
-   - Crear `src/models/classifier.py` (Logistic Regression baseline vs. XGBoost / Random Forest).
-   - Evaluar con F1-macro y matriz de confusión en splits temporales. Importancia SHAP.
-4. **Fase 4 — Modelo Medio (Clustering):**
-   - Crear `src/models/clustering.py` (KMeans, GMM, HDBSCAN) sobre los perfiles territoriales de train.
-   - Evaluación con Silhouette y Davies-Bouldin. Visualización territorial coroplética.
-5. **Fase 5 — Modelo Avanzado (Agente de Refuerzo):**
-   - Crear `src/models/rl_env.py` (Entorno Gymnasium con estado, acciones top-3, cooldown y penalización de abandono).
-   - Crear `src/models/rl_train.py` (Entrenamiento con PPO/DQN, evaluación en semillas y comparación con los 4 baselines).
-6. **Fase 6 — Cierre y Demostración:**
-   - Integrar la interfaz interactiva en `app/app.py` (Streamlit).
-   - Generar gráficos y diapositivas de presentación para la sustentación de las 4:25 p. m.
+1. **Fase 0 — Configuración, Entorno y Fuentes Base:** ✅ **COMPLETADA**
+   - Configuración única en `config.yaml`, entorno Python 3.13 con PyTorch, Gymnasium y SB3.
+   - DIVIPOLA DANE (87 municipios), polígonos MGN, proyecciones DANE 2005–2042 y registro de emergencias.
+2. **Fase 1 — Ingesta y Limpieza Sísmica:** ✅ **COMPLETADA**
+   - Ingesta sísmica vía USGS API (1.112 eventos), limpieza y filtrado territorial con spatial join en Santander (1.065 eventos válidos). Cálculo de energía Gutenberg-Richter.
+3. **Fase 2 — Ingeniería de Variables y Dataset Panel:** ✅ **COMPLETADA**
+   - Construcción de panel mensual balanceado: 87 municipios × 260 meses (22.620 filas).
+   - 22 variables verificadas (15 sísmicas pasadas/presentes $\le t$, 7 territoriales y demográficas DANE).
+   - Etiqueta objetivo $t+1$ (`bajo`, `medio`, `alto`) con cuantiles ajustados estrictamente en train sobre actividad $> 0$ (anti zero-inflation).
+   - Análisis de multicolinealidad (Spearman $< 0.90$ en meses activos).
+   - Archivo generado: `data/processed/dataset.parquet` y umbrales en `artifacts/label_thresholds.json`.
+   - 15 tests unitarios pasando al 100%.
+
+---
+
+## 5. Próximos Pasos Inmediatos (Modelado Encadenado)
+
+1. **Fase 3 — Modelo Básico (Supervisado):**
+   - `src/models/classifier.py`: Baseline (Regresión Logística balanceada) vs Retador (XGBoost / Random Forest).
+   - Partición temporal estricta: Train (2005–2018), Val (2019–2021), Test (2022–2026).
+   - Métrica principal: Macro F1 y matriz de confusión.
+   - Interpretabilidad: Gráfico SHAP (`docs/figures/shap_summary.png`).
+   - Salida: Probabilidades por municipio-mes (`artifacts/predictions_classifier.parquet`) y modelo guardado (`artifacts/classifier_model.joblib`).
+2. **Fase 4 — Modelo Medio (Clustering Territorial):**
+   - `src/models/clustering.py`: Perfil territorial estático calculado exclusivamente con datos $\le 2018$ (anti-leakage).
+   - Algoritmos: KMeans, GMM, Jerárquico y HDBSCAN evaluados con Silhouette y Davies-Bouldin.
+   - Salida: Identificador de clúster territorial (`artifacts/municipal_clusters.parquet`).
+3. **Fase 5 — Modelo Avanzado (Agente de Refuerzo):**
+   - `src/models/rl_env.py` y `src/models/rl_train.py`: Entorno Gymnasium y agente PPO con restricciones reales (top-3, cooldown, penalización de desatención).
+   - Comparación obligatoria contra los 4 baselines con intervalos bootstrap.
+4. **Fase 6 — Interfaz y Presentación:**
+   - Dashboard en Streamlit (`app/app.py`) y diapositivas de sustentación.
 
 ---
 
