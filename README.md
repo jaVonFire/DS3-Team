@@ -21,9 +21,8 @@ python scripts/check_env.py            # verifica entorno y config
 
 ## Estado por fase
 - [x] Fase 0 — Andamiaje, entorno (núcleo + RL), config, contexto IA, tabla base de 87 municipios
-  - Pendiente de Fase 0: catálogo SGC (descarga manual) y población/vivienda DANE
-- [ ] Fase 1 — Datos y limpieza
-- [ ] Fase 2 — Variables (≥20 justificadas)
+- [x] Fase 1 — Ingesta sísmica, limpieza, spatial join y merge DANE (`data/interim/sismos_limpios.parquet`)
+- [ ] Fase 2 — Variables (≥20 justificadas) y dataset final (`data/processed/dataset.parquet`)
 - [ ] Fase 3 — Básico · [ ] Fase 4 — Medio · [ ] Fase 5 — Avanzado · [ ] Fase 6 — Cierre
 
 ## Versiones
