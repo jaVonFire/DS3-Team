@@ -1,0 +1,126 @@
+{
+  "n_clusters": 3,
+  "silhouette": 0.7199863646458031,
+  "davies_bouldin": 0.44444924033856265,
+  "benchmark": [
+    {
+      "algorithm": "kmeans",
+      "k": 2,
+      "silhouette": 0.7784535132547361,
+      "davies_bouldin": 0.37379614489233975
+    },
+    {
+      "algorithm": "agglomerative",
+      "k": 2,
+      "silhouette": 0.7784535132547361,
+      "davies_bouldin": 0.37379614489233975
+    },
+    {
+      "algorithm": "kmeans",
+      "k": 3,
+      "silhouette": 0.7199863646458031,
+      "davies_bouldin": 0.44444924033856265
+    },
+    {
+      "algorithm": "gmm",
+      "k": 3,
+      "silhouette": 0.7199863646458031,
+      "davies_bouldin": 0.44444924033856265
+    },
+    {
+      "algorithm": "agglomerative",
+      "k": 3,
+      "silhouette": 0.7199863646458031,
+      "davies_bouldin": 0.44444924033856265
+    },
+    {
+      "algorithm": "gmm",
+      "k": 2,
+      "silhouette": 0.6680861676074635,
+      "davies_bouldin": 0.5357410631235447
+    },
+    {
+      "algorithm": "kmeans",
+      "k": 4,
+      "silhouette": 0.47266166973235335,
+      "davies_bouldin": 0.8246604663696226
+    },
+    {
+      "algorithm": "agglomerative",
+      "k": 4,
+      "silhouette": 0.4432660092140735,
+      "davies_bouldin": 0.8520124382543726
+    },
+    {
+      "algorithm": "hdbscan",
+      "k": 4,
+      "silhouette": 0.4093707375836551,
+      "davies_bouldin": 0.7724271350996268
+    },
+    {
+      "algorithm": "kmeans",
+      "k": 6,
+      "silhouette": 0.3530345734415708,
+      "davies_bouldin": 0.8925695193263591
+    },
+    {
+      "algorithm": "gmm",
+      "k": 5,
+      "silhouette": 0.3382570004958977,
+      "davies_bouldin": 0.9003947669927527
+    },
+    {
+      "algorithm": "kmeans",
+      "k": 5,
+      "silhouette": 0.3382570004958977,
+      "davies_bouldin": 0.9003947669927527
+    },
+    {
+      "algorithm": "gmm",
+      "k": 6,
+      "silhouette": 0.3292964735743725,
+      "davies_bouldin": 0.7692410600928322
+    },
+    {
+      "algorithm": "gmm",
+      "k": 4,
+      "silhouette": 0.310842491779032,
+      "davies_bouldin": 0.968192359147642
+    },
+    {
+      "algorithm": "agglomerative",
+      "k": 6,
+      "silhouette": 0.2800721262559498,
+      "davies_bouldin": 0.9490009039325695
+    },
+    {
+      "algorithm": "agglomerative",
+      "k": 5,
+      "silhouette": 0.27557019299969077,
+      "davies_bouldin": 0.91619327122086
+    }
+  ],
+  "cluster_distribution": {
+    "Periferia Rural / Baja Frecuencia": 82,
+    "Nido Sísmico (Alta Recurrencia)": 3,
+    "Metrópoli (Alta Exposición Humana)": 2
+  },
+  "variables_used": [
+    "n_eventos_sum",
+    "tasa_anual_eventos",
+    "pct_meses_activos",
+    "mag_max_hist",
+    "mag_media_hist",
+    "prof_media_hist",
+    "energia_total",
+    "n_eventos_M3_sum",
+    "n_eventos_M4_sum",
+    "dist_nido_km",
+    "area_km2",
+    "poblacion_total_media",
+    "poblacion_cabecera_media",
+    "poblacion_resto_media",
+    "pct_urbano_medio",
+    "densidad_hab_km2_media"
+  ]
+}
