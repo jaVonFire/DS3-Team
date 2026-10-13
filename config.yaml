@@ -1,0 +1,128 @@
+# =============================================================================
+# config.yaml — ÚNICA fuente de verdad de parámetros del proyecto.
+# Ningún módulo de src/ debe tener fechas, umbrales ni semillas hardcodeadas.
+# =============================================================================
+
+project:
+  name: sismos-santander
+  seed: 42                       # semilla global (numpy, sklearn, torch, gymnasium)
+  rl_seeds: [11, 22, 33, 44, 55] # semillas para media ± desv. del agente RL
+
+# -----------------------------------------------------------------------------
+# Zona de estudio. Parametrizada: si el día del evento se elige otra zona,
+# solo se cambia este bloque.
+# -----------------------------------------------------------------------------
+zone:
+  department: SANTANDER          # filtro por nombre/código DANE (68)
+  dane_dept_code: "68"
+  # Caja envolvente aproximada (lat/lon). Se usa solo como PRE-filtro del
+  # catálogo; el municipio se toma de la columna del SGC (ver spatial.*).
+  bbox:
+    lat_min: 5.6
+    lat_max: 8.2
+    lon_min: -74.8
+    lon_max: -72.3
+  # Nido Sísmico de Bucaramanga (centro aproximado, VERIFICAR con datos reales)
+  nido_bucaramanga:
+    lat: 6.8
+    lon: -73.1
+
+# -----------------------------------------------------------------------------
+# Ventana temporal y división (NUNCA mezclar fechas entre splits)
+# -----------------------------------------------------------------------------
+dates:
+  catalog_start: "2005-01-01"
+  catalog_end: "2026-09-30"      # último mes completo antes del evento
+  splits:
+    train: ["2005-01-01", "2018-12-31"]
+    val:   ["2019-01-01", "2021-12-31"]
+    test:  ["2022-01-01", "2026-09-30"]
+
+# -----------------------------------------------------------------------------
+# Limpieza del catálogo SGC
+# -----------------------------------------------------------------------------
+cleaning:
+  magnitude_range: [0.0, 8.5]
+  depth_range_km: [0.0, 300.0]
+  drop_duplicates_on: [fecha_utc, latitud, longitud, profundidad, magnitud]
+  drop_null_in: [fecha_utc, latitud, longitud, magnitud, profundidad]
+
+# -----------------------------------------------------------------------------
+# Asignación evento -> municipio.
+# Estrategia: usar la columna de municipio del catálogo SGC; el spatial join
+# con geopandas es SOLO fallback para filas sin municipio o inconsistentes.
+# -----------------------------------------------------------------------------
+spatial:
+  strategy: sgc_column_with_sjoin_fallback
+  municipio_column_sgc: municipio   # confirmar nombre real tras descargar
+  crs_geo: "EPSG:4326"
+  crs_metric: "EPSG:9377"           # MAGNA-SIRGAS Origen Nacional (distancias en m)
+
+# -----------------------------------------------------------------------------
+# Etiqueta del clasificador (Básico).
+# Problema: ~70 % de filas municipio-mes tienen actividad 0 (zero-inflation),
+# por lo que los terciles sobre todas las filas NO son válidos.
+# Decisión: cuantiles calculados SOLO sobre filas de TRAIN con índice > 0.
+#   bajo  = índice == 0  ó  índice <= q_low
+#   medio = q_low < índice <= q_high
+#   alto  = índice > q_high
+# Revisar tras el EDA (notebook 01). Los cuantiles se guardan en artifacts.
+# -----------------------------------------------------------------------------
+label:
+  target_horizon_months: 1          # etiqueta = mes t+1; features con datos <= t
+  activity_index: energy_weighted_count
+  zero_policy: bajo
+  quantiles_fit_on: train_nonzero
+  quantiles: [0.33, 0.66]
+  classes: [bajo, medio, alto]
+
+# -----------------------------------------------------------------------------
+# Features
+# -----------------------------------------------------------------------------
+features:
+  rolling_windows_days: [30, 90]
+  strong_event_magnitude: 3.0
+  min_events_for_b_value: 30
+  collinearity_spearman_max: 0.90   # >0.90 -> descartar/agrupar y documentar
+
+# -----------------------------------------------------------------------------
+# Clustering (Medio)
+# LEAKAGE: el perfil se calcula SOLO con la ventana de entrenamiento y se
+# asigna de forma estática (o acumulativa hasta t). Nunca con toda la serie.
+# -----------------------------------------------------------------------------
+clustering:
+  profile_window: train             # train | expanding
+  algorithms: [kmeans, gmm, agglomerative, hdbscan]
+  k_range: [2, 8]
+  metrics: [silhouette, davies_bouldin]
+
+# -----------------------------------------------------------------------------
+# Aprendizaje por refuerzo (Avanzado)
+# Para justificar RL frente a un ranking determinista (riesgo × población),
+# el entorno impone restricciones dinámicas reales.
+# -----------------------------------------------------------------------------
+rl:
+  algorithm: PPO                    # PPO | DQN | tabular_q (fallback)
+  top_k: 3                          # presupuesto: municipios atendidos por mes
+  cooldown_months: 1                # un municipio atendido no repite el mes siguiente
+  neglect_penalty_months: 6         # penaliza desatención prolongada
+  repeat_penalty: 0.5               # anti "policy collapse" (elegir siempre Los Santos)
+  reward:
+    strong_event_threshold: 3.0
+    population_weight: true
+    miss_penalty: 1.0               # evento fuerte en municipio NO priorizado
+  total_timesteps: 100000
+  eval_episodes: 20
+  baselines: [random, historical_most_active, classifier_only, risk_x_population]
+  bootstrap_resamples: 1000
+
+# -----------------------------------------------------------------------------
+# Rutas
+# -----------------------------------------------------------------------------
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  dataset: data/processed/dataset.parquet
+  artifacts: artifacts
+  figures: docs/figures

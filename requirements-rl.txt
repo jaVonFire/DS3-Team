@@ -1,0 +1,7 @@
+# Stack de Aprendizaje por Refuerzo (Avanzado). Instalar DESPUÉS de requirements.txt:
+#   pip install -r requirements-rl.txt
+# En Windows sin GPU, si pip descarga torch pesado/falla, usar la rueda CPU:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+gymnasium>=0.29
+stable-baselines3>=2.3
+# torch lo trae stable-baselines3; ver nota de arriba si falla.
