@@ -111,7 +111,7 @@ rl:
     strong_event_threshold: 3.0
     population_weight: true
     miss_penalty: 1.0               # evento fuerte en municipio NO priorizado
-  total_timesteps: 100000
+  total_timesteps: 10000
   eval_episodes: 20
   baselines: [random, historical_most_active, classifier_only, risk_x_population]
   bootstrap_resamples: 1000
