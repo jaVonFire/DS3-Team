@@ -71,9 +71,14 @@
 * **La Pregunta Clave del Jurado:** *"¿Por qué no usar simplemente una fórmula estática como Riesgo $\times$ Población?"*
 * **Respuesta Demostrada:**
   * Si la Gobernación solo usa Riesgo $\times$ Población, sufre de **colapso de política**: elegiría casi siempre Bucaramanga o Los Santos y abandonaría los otros 85 municipios.
+* **Principio Innovador: Riesgo = Amenaza $\times$ Exposición $\times$ Vulnerabilidad:**
+  * Priorizamos **dónde el sismo importa**, no solo dónde tiembla:
+    - *Amenaza:* Magnitud y probabilidad en $t+1$ ponderada por cercanía al Nido Sísmico.
+    - *Exposición:* Concentración urbana en cabeceras (DANE), protegiendo colegios, hospitales e infraestructura crítica.
+    - *Vulnerabilidad:* Tiempo acumulado de abandono territorial (>6 meses sin recursos).
 * **Restricciones Reales del Entorno Gymnasium:**
   1. **Presupuesto:** Top-3 municipios por mes.
-  2. **Cooldown:** Un municipio atendido descansa el mes siguiente.
+  2. **Cooldown:** Un municipio atendido descansa obligatoriamente al mes siguiente.
   3. **Anti-desatención:** Fuerte penalización si un municipio pasa $>6$ meses sin atención y sufre un sismo.
   4. **Ponderación Humana:** Recompensa proporcional a las vidas protegidas según el DANE.
 
@@ -94,18 +99,20 @@
 
 ---
 
-### Diapositiva 9: Demostración en Vivo — Streamlit (`app/app.py`) (Minuto 8:45 – 9:30)
-* Mostrar brevemente la aplicación interactiva:
-  * Selector mensual del periodo de prueba.
-  * Visualización de los top-3 municipios seleccionados, vidas protegidas y cumplimiento del cooldown.
-  * Mapa territorial coroplético interactivo de Folium.
+### Diapositiva 9: Demostración en Vivo y Explicador con LLM (Minuto 8:45 – 9:30)
+* **Demostración de la Aplicación Streamlit (`app/app.py`):**
+  1. *Consola de Decisión:* Selector mensual del periodo de prueba mostrando las 3 asignaciones y el cooldown.
+  2. *Innovación con IA Generativa (Gemini / Inferencia Local):*
+     - Botón de 1 clic que traduce instantáneamente los valores SHAP, las probabilidades de XGBoost y las vidas expuestas en un **Memorando Ejecutivo Oficial de Gestión del Riesgo** bajo la Ley 1523 de 2012 para el Gobernador y alcaldes locales.
+     - Funciona tanto online (con Gemini API Key) como offline (motor institucional local infalible sin internet).
+  3. *Mapa Territorial Interactivo:* Visualización coroplética de Folium con los 87 municipios.
 
 ---
 
 ### Diapositiva 10: Conclusión e Impacto para Santander (Minuto 9:30 – 10:00)
 * **Aportes Clave:**
-  1. Pipeline 100% reproducible, modular en `src/`, con 27 pruebas unitarias pasando al 100%.
-  2. Cadena completa: Clasificador $\rightarrow$ Clustering $\rightarrow$ Agente de Refuerzo.
+  1. Pipeline 100% reproducible, modular en `src/`, con **29 pruebas unitarias pasando al 100%**.
+  2. Cadena completa: Clasificador $\rightarrow$ Clustering $\rightarrow$ Agente de Refuerzo $\rightarrow$ Explicador LLM.
   3. Herramienta práctica de política pública para la Unidad Nacional para la Gestión del Riesgo de Desastres (UNGRD) y la Gobernación de Santander.
 
 ---
